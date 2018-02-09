@@ -4,31 +4,45 @@ using UnityEngine;
 
 namespace ResourceManagement
 {
-    [System.Serializable]
-    public class ResourceData
+    class Recipe
     {
-        public float oxygen;
-        public float carbon;
-        public float food;
-        public float coal;
-        public float electricity;
-        public float hydrogen;
-        public float water;
-        public float water_soiled;
+        string name;
+        Dictionary<string, float> requirements;
+        Dictionary<string, float> outputs;
+    }
+    
+    class ResourceData
+    {
+        Dictionary<string, float> resources = new Dictionary<string, float>()
+        {
+            { "O" , 100f },
+            { "O2" , 100f },
+            { "CO2" , 100f },
+            { "C" , 100f },
+            { "H" , 100f },
+            { "H2O" , 100f },
+            { "H2O_soiled" , 100f },
+            { "E" , 100f },
+            { "Food" , 100f }
+        };
     }
 
-    public class ResourceConvert
+    static class ResourceEngine
     {
+        static List<Recipe> recipe = new List<Recipe>()
+        {
 
-    }
+        };
 
-    public class ResourceTransfer
-    {
+        static List<Recipe> Filter(ResourceData data)
+        {
 
-    }
+        }
 
-    public class ResourceSave
-    {
+        static void DoConvert(ResourceData data, Recipe recipe, int count)
+        {
 
+        }
+        
     }
 }
