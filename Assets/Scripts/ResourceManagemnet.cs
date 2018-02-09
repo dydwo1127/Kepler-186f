@@ -4,12 +4,18 @@ using UnityEngine;
 
 namespace ResourceManagement
 {
-    class ResourceData
+    class ResourceData : Dictionary<string, float>
     {
-        Dictionary<string, float> resources;
+        public ResourceData(): this(DataHelper.ToDictinary())
+        {
+        }
+
         public ResourceData(Dictionary<string, float> resources)
         {
-            this.resources = resources;
+            foreach(var kv in resources)
+            {
+                this[kv.Key] = kv.Value;
+            }
         }
     }
 
