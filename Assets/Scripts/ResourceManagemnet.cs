@@ -11,7 +11,12 @@ namespace ResourceManagement
         Dictionary<string, float> outputs;
 
         Recipe(string name, Dictionary<string, float> requirements, Dictionary<string, float> outputs)
-        { }
+        {
+            this.name = name;
+            this.requirements = requirements;
+            this.outputs = outputs;
+        }
+
     }
 
     class ResourceData
@@ -38,7 +43,7 @@ namespace ResourceManagement
     {
         static List<Recipe> recipe = new List<Recipe>()
         {   
-            
+            new Recipe("OtoO2",new Dictionary<string,float>{ { "O",2f} },new Dictionary<string,float>{ { "O2",1f} })
         };
 
         static List<Recipe> Filter(ResourceData data)
