@@ -4,42 +4,6 @@ using UnityEngine;
 
 namespace ResourceManagement
 {
-    static class DataHelper
-    {
-        public static Dictionary<string, float> ToDictinary(
-            float O = 0, float O2 = 0, float CO2 = 0, float C = 0, float H = 0,
-            float H2O = 0, float H2O_soiled = 0, float E = 0, float food = 0)
-        {
-            return new Dictionary<string, float>
-            {
-                  { "O" , O },
-                  { "O2" , O2 },
-                  { "CO2" , CO2 },
-                  { "C" , C },
-                  { "H" , H },
-                  { "H2O" , H2O},
-                  { "H2O_soiled" ,H2O_soiled },
-                  { "E" , E },
-                  { "Food" , food }
-            };
-        }
-    }
-
-    class Recipe
-    {
-        string name;
-        Dictionary<string, float> requirements;
-        Dictionary<string, float> outputs;
-
-        Recipe(string name, Dictionary<string, float> requirements, Dictionary<string, float> outputs)
-        {
-            this.name = name;
-            this.requirements = requirements;
-            this.outputs = outputs;
-        }
-
-    }
-
     class ResourceData
     {
         Dictionary<string, float> resources;
@@ -65,6 +29,42 @@ namespace ResourceManagement
         {
 
         }
-        
+
+    }
+
+    class Recipe
+    {
+        string name;
+        Dictionary<string, float> requirements;
+        Dictionary<string, float> outputs;
+
+        Recipe(string name, Dictionary<string, float> requirements, Dictionary<string, float> outputs)
+        {
+            this.name = name;
+            this.requirements = requirements;
+            this.outputs = outputs;
+        }
+
+    }
+
+    static class DataHelper
+    {
+        public static Dictionary<string, float> ToDictinary(
+            float O = 0, float O2 = 0, float CO2 = 0, float C = 0, float H = 0,
+            float H2O = 0, float H2O_soiled = 0, float E = 0, float food = 0)
+        {
+            return new Dictionary<string, float>
+            {
+                  { "O" , O },
+                  { "O2" , O2 },
+                  { "CO2" , CO2 },
+                  { "C" , C },
+                  { "H" , H },
+                  { "H2O" , H2O},
+                  { "H2O_soiled" ,H2O_soiled },
+                  { "E" , E },
+                  { "Food" , food }
+            };
+        }
     }
 }
