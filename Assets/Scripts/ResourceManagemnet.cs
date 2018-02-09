@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace ResourceManagement
 {
-    class ResourceData : Dictionary<string, float>
+    class ResourceData : Dictionary<string, double>
     {
         public ResourceData(): this(DataHelper.ToDictinary())
         {
         }
 
-        public ResourceData(Dictionary<string, float> resources)
+        public ResourceData(Dictionary<string, double> resources)
         {
             foreach(var kv in resources)
             {
@@ -22,8 +22,27 @@ namespace ResourceManagement
     static class ResourceEngine
     {
         static List<Recipe> recipe = new List<Recipe>()
-        {   
-            new Recipe("OtoO2",new Dictionary<string,float>{ { "O",2f} },new Dictionary<string,float>{ { "O2",1f} })
+        {
+            new Recipe("OtoO2",new Dictionary<string,double>{ { "O",2f} },new Dictionary<string,double>{ { "O2",1f} }),
+            new Recipe("O2toO",new Dictionary<string,double>{ { "O2",1f } },new Dictionary<string, double>{ { "O",2f} }),
+            new Recipe("MakeFood",new Dictionary<string,double>{ {"CO2",6f },{ "H2O",12f},{ "E",1f} },
+                new Dictionary<string, double>{ { "food",1f},{ "O2",6f},{ "H2O",6f} }),
+            new Recipe("Breath", new Dictionary<string, double>{ { "food",1f},{ "O2",6f},{ "H2O",6f} },
+                new Dictionary<string,double>{ {"CO2",6f },{ "H2O",12f},{ "E",1f} }),
+            new Recipe("CleanH2O",new Dictionary<string, double>{ { "H2O_soiled",1f } },
+                new Dictionary<string, double>{ { "H2O", 1f } }),
+            new Recipe("DirtyH2O",new Dictionary<string, double>{ { "H2O",1f} },
+                new Dictionary<string, double>{ { "H2O_soiled",1f} }),
+            new Recipe("CleanO2",new Dictionary<string, double>{ { "CO2",1f} },
+                new Dictionary<string, double>{ { "C",1f},{ "O2",1f} }),
+            new Recipe("BurnC",new Dictionary<string, double>{ { "C",1f},{ "O2",1f} },
+                new Dictionary<string, double>{ { "CO2",1f} }),
+            new Recipe("H2ODivide",new Dictionary<string, double>{ { "H2O",1f} },
+                new Dictionary<string, double>{ { "H",2f} ,{ "O",1f} }),
+            new Recipe("FuelCell",new Dictionary<string, double>{ { "H",2f},{ "O",1f} },
+                new Dictionary<string, double>{ { "H2O",1f} })
+
+         
         };
 
         static List<Recipe> Filter(ResourceData data)
@@ -41,10 +60,10 @@ namespace ResourceManagement
     class Recipe
     {
         string name;
-        Dictionary<string, float> requirements;
-        Dictionary<string, float> outputs;
+        Dictionary<string, double> requirements;
+        Dictionary<string, double> outputs;
 
-        Recipe(string name, Dictionary<string, float> requirements, Dictionary<string, float> outputs)
+        public Recipe(string name, Dictionary<string, double> requirements, Dictionary<string, double> outputs)
         {
             this.name = name;
             this.requirements = requirements;
@@ -55,11 +74,11 @@ namespace ResourceManagement
 
     static class DataHelper
     {
-        public static Dictionary<string, float> ToDictinary(
-            float O = 0, float O2 = 0, float CO2 = 0, float C = 0, float H = 0,
-            float H2O = 0, float H2O_soiled = 0, float E = 0, float food = 0)
+        public static Dictionary<string, double> ToDictinary(
+            double O = 0, double O2 = 0, double CO2 = 0,double C = 0, double H = 0,
+            double H2O = 0, double H2O_soiled = 0, double E = 0, double food = 0)
         {
-            return new Dictionary<string, float>
+            return new Dictionary<string, double>
             {
                   { "O" , O },
                   { "O2" , O2 },
