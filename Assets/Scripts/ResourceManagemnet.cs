@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace ResourceManagement
 {
@@ -41,18 +42,40 @@ namespace ResourceManagement
                 new Dictionary<string, double>{ { "H",2f} ,{ "O",1f} }),
             new Recipe("FuelCell",new Dictionary<string, double>{ { "H",2f},{ "O",1f} },
                 new Dictionary<string, double>{ { "H2O",1f} })
-
-         
         };
 
-        static List<Recipe> Filter(ResourceData data)
+        /*static List<Recipe> Filter(ResourceData data)
         {
-
+            
         }
-
-        static void DoConvert(ResourceData data, Recipe recipe, int count)
+        */
+        static void DoConvert(ResourceData data, Recipe recipe, double count)
         {
+            double possibility = -1;
+            
+            foreach (var req in recipe.requirements)
+            {
+                if (possibility == -1)
+                {
+                    possibility = data[req.Key] / req.Value;
+                }
+                else if (possibility > data[req.Key] / req.Value)
+                {
+                    possibility = data[req.Key] / req.Value;
+                }
+            }
+            count = Math.Min(possibility, count);
 
+            foreach (var req in recipe.requirements)
+            {
+                data[req.Key] -= req.Value * count;
+            }
+            foreach (var req in recipe.outputs)
+            {
+                data[req.Key] += req.Value * count;
+            }
+        
+            
         }
 
     }
@@ -60,8 +83,8 @@ namespace ResourceManagement
     class Recipe
     {
         string name;
-        Dictionary<string, double> requirements;
-        Dictionary<string, double> outputs;
+        public Dictionary<string, double> requirements;
+        public Dictionary<string, double> outputs;
 
         public Recipe(string name, Dictionary<string, double> requirements, Dictionary<string, double> outputs)
         {
