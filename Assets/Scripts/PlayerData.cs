@@ -28,9 +28,18 @@ namespace PlayerData
 
         public void UseResources(int[] sectorNum, Recipe recipe, double count)
         {
-
+            foreach(int sector in sectorNum)
+            {
+                ResourceEngine.DoConvert(resources[sector], recipe, count);
+            }
         }
     }
 
-    
+    class Person
+    {
+        string name = "defaultName";
+        int age;
+        float happiness;
+
+    }
 }
