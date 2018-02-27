@@ -6,8 +6,8 @@ using System.Text.RegularExpressions;
 
 public class CSVReader
 {
-    static string SPLIT_RE = @",(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
-    static string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
+    static string SPLIT_RE = ",";
+    static string LINE_SPLIT_RE = "\r\n";
     static char[] TRIM_CHARS = { '\"' };
 
     public static List<Dictionary<string, object>> Read(string file)
@@ -16,9 +16,14 @@ public class CSVReader
         TextAsset data = Resources.Load(file) as TextAsset;
 
         var lines = Regex.Split(data.text, LINE_SPLIT_RE);
+        Debug.Log("line Count : " + lines.Length);
 
-        if (lines.Length <= 1) return list;
-
+        if (lines.Length <= 1)
+        {
+            
+            return list;
+        }
+        
         var header = Regex.Split(lines[0], SPLIT_RE);
         for (var i = 1; i < lines.Length; i++)
         {
