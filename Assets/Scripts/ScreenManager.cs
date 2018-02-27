@@ -93,11 +93,7 @@ public class ScreenManager : MonoBehaviour {
         GO_Sec_spec_text.GetComponent<Text>().text = tempText;
     }
 
-    public void ResourceGraph()
-    {
-        // 그래프 그릴 6개의 데이터를 배열 / 자료구조로 불러옴
-        // foreach 통해 ShowGraph.DrawGraph() 실행
-    }
+
 
     IEnumerator Fadein()
     {

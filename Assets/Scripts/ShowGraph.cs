@@ -9,28 +9,47 @@ public class ShowGraph : MonoBehaviour
     public GameObject point; // 클래스 PlotPoint를 가지고 있는 prefab
     public GameObject Orientation;
     private GraphData myData;
+    private ResourceData SectorR;
     private double[] axis = new double[16];
+    private Queue<GameObject> Points;
 
-
-    public void SetGraph() // 그래프에 그려질 각 점의 value에 myData를 대입하는 함수
+    void Start()
     {
-        int temp = 0;
+        myData = new GraphData();
+        SectorR = new ResourceData();
+        Points = new Queue<GameObject>();
+    }
+
+    public void DrawGraph(string key) // 그래프를 구현하는 함수
+    {
+        myData.LimitEnque(SectorR[key]);
+        float interval = 175/16;
+        GameObject tempObject;
+        Vector3 tempform = Vector3.zero;
         foreach (var item in myData)
         {
-            axis[temp++] = item;
+            Debug.Log("foreach:" + item);
+            tempObject = Instantiate(point);
+            tempObject.transform.SetParent(Orientation.transform);
+            tempObject.GetComponent<RectTransform>().localPosition = tempform + (float)item * Vector3.up;
+            tempObject.GetComponent<PlotPoint>().value = (float)item;
+            tempform += interval * Vector3.right;
+            Points.Enqueue(tempObject);
         }
     }
 
-    public void DrawGraph() // 그래프를 구현하는 함수
+    void OnDisable()
     {
-        GameObject tempObject;
-        Transform tempform = Orientation.transform;
-        foreach (var item in axis)
+        foreach (var item in Points)
         {
-            tempObject = Instantiate(point, tempform.position + (float)item * Vector3.up, tempform.rotation);
-            tempObject.GetComponent<PlotPoint>().value = (float)item;
-            tempform.position = tempform.position + Vector3.right;
+            Destroy(item);
         }
+    }
+    
+    public void DrawIt()
+    {
+        SectorR["O2"] = 100f;
+        DrawGraph("O2");
     }
 }
 
@@ -38,7 +57,10 @@ class GraphData : Queue<double> // 최대 크기가 16으로 고정된 Queue<dou
 {
     public GraphData() : base(16)
     {
-
+        for (int i = 0; i < 15; i++)
+        {
+            Enqueue(0f);
+        }
     }
 
     public GraphData(double data) : this()
@@ -48,10 +70,11 @@ class GraphData : Queue<double> // 최대 크기가 16으로 고정된 Queue<dou
 
     public void LimitEnque(double data)
     {
-        if (Count == 16)
+        if (Count > 15)
         {
             Dequeue();
             Enqueue(data);
         }
+        else Enqueue(data);
     }
 }
