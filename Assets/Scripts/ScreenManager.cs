@@ -46,9 +46,9 @@ public class ScreenManager : MonoBehaviour {
     {
         GO_nextstate = nextState;
         StartCoroutine("Fadein");
-        if (!Camera.main.GetComponent<RayCaster>().enabled)
+        if (ClickObject.disable)
         {
-            Camera.main.GetComponent<RayCaster>().enabled = true;
+            ClickObject.disable = false;
         }
     }
 
