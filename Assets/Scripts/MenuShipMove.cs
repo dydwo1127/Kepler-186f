@@ -15,12 +15,10 @@ public class MenuShipMove : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("1");
                 MouseStart = Input.mousePosition;
             }
             else
             {
-                Debug.Log("2");
                 ship.transform.rotation *= Quaternion.Euler(0, 2 * Quaternion.FromToRotation(Input.mousePosition, MouseStart).eulerAngles.magnitude, 0);
                 MouseStart = Input.mousePosition;
             }

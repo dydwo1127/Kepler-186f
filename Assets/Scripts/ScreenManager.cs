@@ -38,9 +38,7 @@ public class ScreenManager : MonoBehaviour {
             else
             {
                 UIChange(GO_Pause);
-                ClickObject.disable = true;
             }
-            
         }
     }
     // UIChange : Fadein 코루틴을 실행
@@ -48,10 +46,9 @@ public class ScreenManager : MonoBehaviour {
     {
         GO_nextstate = nextState;
         StartCoroutine("Fadein");
-        if (ClickObject.disable)
+        if (!Camera.main.GetComponent<RayCaster>().enabled)
         {
-            ClickObject.disable = false;
-            Debug.Log("OK");
+            Camera.main.GetComponent<RayCaster>().enabled = true;
         }
     }
 
