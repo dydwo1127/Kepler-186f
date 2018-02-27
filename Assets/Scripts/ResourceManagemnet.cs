@@ -20,37 +20,46 @@ namespace ResourceManagement
         }
     }
 
-    static class ResourceEngine
+    class ResourceEngine
     {
-        static List<Recipe> recipe = new List<Recipe>()
+        
+        public static Dictionary<string, Recipe> recipe = new Dictionary<string, Recipe>()
         {
-            new Recipe("OtoO2",new Dictionary<string,double>{ { "O",2f} },new Dictionary<string,double>{ { "O2",1f} }),
-            new Recipe("O2toO",new Dictionary<string,double>{ { "O2",1f } },new Dictionary<string, double>{ { "O",2f} }),
-            new Recipe("MakeFood",new Dictionary<string,double>{ {"CO2",6f },{ "H2O",12f},{ "E",1f} },
-                new Dictionary<string, double>{ { "food",1f},{ "O2",6f},{ "H2O",6f} }),
-            new Recipe("Breath", new Dictionary<string, double>{ { "food",1f},{ "O2",6f},{ "H2O",6f} },
-                new Dictionary<string,double>{ {"CO2",6f },{ "H2O",12f},{ "E",1f} }),
-            new Recipe("CleanH2O",new Dictionary<string, double>{ { "H2O_soiled",1f } },
-                new Dictionary<string, double>{ { "H2O", 1f } }),
-            new Recipe("DirtyH2O",new Dictionary<string, double>{ { "H2O",1f} },
-                new Dictionary<string, double>{ { "H2O_soiled",1f} }),
-            new Recipe("CleanO2",new Dictionary<string, double>{ { "CO2",1f} },
-                new Dictionary<string, double>{ { "C",1f},{ "O2",1f} }),
-            new Recipe("BurnC",new Dictionary<string, double>{ { "C",1f},{ "O2",1f} },
-                new Dictionary<string, double>{ { "CO2",1f} }),
-            new Recipe("H2ODivide",new Dictionary<string, double>{ { "H2O",1f} },
-                new Dictionary<string, double>{ { "H",2f} ,{ "O",1f} }),
-            new Recipe("FuelCell",new Dictionary<string, double>{ { "H",2f},{ "O",1f} },
-                new Dictionary<string, double>{ { "H2O",1f} })
+            {"OtoO2",
+                new Recipe("OtoO2", new Dictionary<string,double>{ { "O",2f} },
+                    new Dictionary<string,double>{ { "O2",1f} }) },
+            {"O2toO",
+                new Recipe("O2toO", new Dictionary<string,double>{ { "O2",1f } },
+                    new Dictionary<string, double>{ { "O",2f} }) },
+            {"MakeFood",
+                new Recipe("MakeFood", new Dictionary<string,double>{ {"CO2",6f },{ "H2O",12f},{ "E",1f} },
+                    new Dictionary<string, double>{ { "food",1f},{ "O2",6f},{ "H2O",6f} }) },
+            {"Breath",
+                new Recipe("Breath", new Dictionary<string, double>{ { "food",1f},{ "O2",6f},{ "H2O",6f} },
+                    new Dictionary<string,double>{ {"CO2",6f },{ "H2O",12f},{ "E",1f} }) },
+            {"CleanH2O",
+                new Recipe("CleanH2O", new Dictionary<string, double>{ { "H2O_soiled",1f } },
+                    new Dictionary<string, double>{ { "H2O", 1f } }) },
+            {"DirtyH2O",
+                new Recipe("DirtyH2O", new Dictionary<string, double>{ { "H2O",1f} },
+                    new Dictionary<string, double>{ { "H2O_soiled",1f} }) },
+            {"CleanO2",
+                new Recipe("CleanO2", new Dictionary<string, double>{ { "CO2",1f} },
+                    new Dictionary<string, double>{ { "C",1f},{ "O2",1f} }) },
+            {"BurnC",
+                new Recipe("BurnC", new Dictionary<string, double>{ { "C",1f},{ "O2",1f} },
+                    new Dictionary<string, double>{ { "CO2",1f} }) },
+            {"H2ODivide",
+                new Recipe("H2ODivide", new Dictionary<string, double>{ { "H2O",1f} },
+                    new Dictionary<string, double>{ { "H",2f} ,{ "O",1f} }) },
+            {"FuelCell",
+                new Recipe("FuelCell", new Dictionary<string, double>{ { "H",2f},{ "O",1f} },
+                    new Dictionary<string, double>{ { "H2O",1f} }) }
         };
 
-        /*static List<Recipe> Filter(ResourceData data)
+        public static void DoConvert(ResourceData data, Recipe recipe, double count)
         {
             
-        }
-        */
-        static void DoConvert(ResourceData data, Recipe recipe, double count)
-        {
             double possibility = -1;
             
             foreach (var req in recipe.requirements)
@@ -82,7 +91,7 @@ namespace ResourceManagement
 
     class Recipe
     {
-        string name;
+        public string name;
         public Dictionary<string, double> requirements;
         public Dictionary<string, double> outputs;
 
