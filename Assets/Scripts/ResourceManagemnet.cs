@@ -22,9 +22,10 @@ namespace ResourceManagement
 
     static class ResourceEngine
     {
-        static List<Recipe> recipe = new List<Recipe>()
+        static List<Dictionary<int, Recipe>> recipe = new List<Dictionary<int, Recipe>>()
         {
-            new Recipe("OtoO2",new Dictionary<string,double>{ { "O",2f} },new Dictionary<string,double>{ { "O2",1f} }),
+            new Dictionary<int, Recipe> { {1, new Recipe(new Dictionary<string, double> { { "O", 2f } }, 
+                new Dictionary<string, double> { { "O2", 1f } }) } },//OtoO2
             new Recipe("O2toO",new Dictionary<string,double>{ { "O2",1f } },new Dictionary<string, double>{ { "O",2f} }),
             new Recipe("MakeFood",new Dictionary<string,double>{ {"CO2",6f },{ "H2O",12f},{ "E",1f} },
                 new Dictionary<string, double>{ { "food",1f},{ "O2",6f},{ "H2O",6f} }),
@@ -82,13 +83,13 @@ namespace ResourceManagement
 
     class Recipe
     {
-        string name;
+        
         public Dictionary<string, double> requirements;
         public Dictionary<string, double> outputs;
 
         public Recipe(string name, Dictionary<string, double> requirements, Dictionary<string, double> outputs)
         {
-            this.name = name;
+            
             this.requirements = requirements;
             this.outputs = outputs;
         }
