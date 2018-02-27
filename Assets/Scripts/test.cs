@@ -6,11 +6,9 @@ public class test : MonoBehaviour {
       
 
     void Start () {
-        List<Dictionary<string, object>> data = CSVReader.Read("EventLog");
-
-        Debug.Log(data.Count.ToString());
+        var data = Parser.ExtractFromMatrix(Resources.Load<TextAsset>("EventLog").text, 1, 1);
+        Debug.Log(data);
 	}
-	
 	
 	void Update () {
        
