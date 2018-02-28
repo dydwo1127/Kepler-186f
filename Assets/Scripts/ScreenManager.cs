@@ -40,6 +40,10 @@ public class ScreenManager : MonoBehaviour {
                 UIChange(GO_Pause);
             }
         }
+		if (Input.GetKeyDown(KeyCode.F1))
+		{
+			UnityEditor.EditorApplication.isPaused = true;
+		}
     }
     // UIChange : Fadein 코루틴을 실행
     public void UIChange(GameObject nextState) 

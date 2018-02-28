@@ -23,17 +23,20 @@ public class ShowGraph : MonoBehaviour
     public void DrawGraph(string key) // 그래프를 구현하는 함수
     {
         myData.LimitEnque(SectorR[key]);
-        float interval = 175/16;
         GameObject tempObject;
-        Vector3 tempform = Vector3.zero;
+        Vector2 tempform = Vector2.zero;
         foreach (var item in myData)
         {
             Debug.Log("foreach:" + item);
             tempObject = Instantiate(point);
-            tempObject.transform.SetParent(Orientation.transform);
-            tempObject.GetComponent<RectTransform>().localPosition = tempform + (float)item * Vector3.up;
+            tempObject.transform.SetParent(transform);
+			tempObject.GetComponent<RectTransform>().anchorMin = tempform;
+			tempObject.GetComponent<RectTransform>().anchorMax = tempform;
+			tempObject.GetComponent<RectTransform>().localPosition = Vector3.zero;
+			tempObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0.5f * (float)item);
+			tempObject.GetComponent<RectTransform>().localScale = Vector3.one;
             tempObject.GetComponent<PlotPoint>().value = (float)item;
-            tempform += interval * Vector3.right;
+            tempform += 0.066f * Vector2.right;
             Points.Enqueue(tempObject);
         }
     }
